@@ -5,6 +5,8 @@ const Home = () => {
   return (
     <div>
       <Hero/>
+
+      {/* testing.. */}
     </div>
   )
 }
