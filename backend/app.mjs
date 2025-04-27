@@ -10,14 +10,14 @@ const app = express()
 app.use(cors({credentials: true }))
 app.use(express.json())
 app.use(cookieParser())
-const allowedOrigin = ['http://localhost:5173']
+const allowedOrigin = ['http://localhost:5173','https://mern-stack-task-management-challenge.vercel.app']
 
 
 app.use(cors({ origin: allowedOrigin, credentials: true }))
 const PORT = process.env.PORT
 
 app.get("/" ,(req,res)=>{
-    res.send("WELCOME TO CHERRYMART API!")
+    res.send("WELCOME TO Task")
 })
 
 
