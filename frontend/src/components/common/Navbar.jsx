@@ -23,14 +23,16 @@ const Navbar = () => {
         <div className="flex justify-between h-16 items-center">
           {/* App Name */}
           <div className="flex items-center">
+            <Link to="/">
             <span className="text-2xl font-bold text-orange-400">Task Manager</span>
+            </Link>
           </div>
 
           {/* Navbar Buttons */}
           <div className="flex items-center space-x-4">
-            {/* Add Task Button */}
+            
             <button
-              onClick={() => navigate('/add-task')}
+              onClick={() => navigate('/')}
               className="px-4 py-2 bg-orange-400 hover:bg-orange-500 text-[#1f1f2e] font-bold rounded-md transition duration-300"
             >
               Add Task
@@ -38,7 +40,7 @@ const Navbar = () => {
 
             {/* View Tasks Button */}
             <button
-              onClick={() => navigate('/view-tasks')}
+              onClick={() => navigate('/view-task')}
               className="px-4 py-2 bg-orange-400 hover:bg-orange-500 text-[#1f1f2e] font-bold rounded-md transition duration-300"
             >
               View Tasks

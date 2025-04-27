@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import UserLayout from './components/layout/UserLayout'
 import store from './redux/store';
 import Home from './pages/Home';
+import ViewTask from './pages/ViewTask';
 
 
 
@@ -20,8 +21,9 @@ const App = () => {
   <Routes>
   <Route path='/' element={<UserLayout/>}>
   <Route index element={<Home/>}/>
-  <Route path='register' element={<Register/>}/>
-  <Route path='login' element={<Login/>}/>
+  <Route path='/register' element={<Register/>}/>
+  <Route path='/login' element={<Login/>}/>
+  <Route path='/view-task' element={<ViewTask/>}/>
   
 
 
