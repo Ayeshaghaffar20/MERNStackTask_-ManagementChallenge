@@ -4,6 +4,7 @@ import "dotenv/config"
 import connectedDB from "./db/db.js"
 import cookieParser from "cookie-parser"
 import userRoutes from "./Routes/userRoutes.js"
+import taskRouter from "./Routes/taskRoutes.js"
 
 
 const app = express()
@@ -25,6 +26,8 @@ app.get("/" ,(req,res)=>{
 connectedDB()
 
 app.use('/api/users',userRoutes)
+app.use('/api/task',taskRouter)
+
 
 
 app.listen(PORT,()=>{

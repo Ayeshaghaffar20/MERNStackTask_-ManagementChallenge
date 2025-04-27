@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
-import  
+
+import mongoose from 'mongoose';
+import User from './userModle.js';
 
 // Define the Task Schema
 const taskSchema = new mongoose.Schema(
@@ -25,6 +26,7 @@ const taskSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users', // Reference to the User who created the task
+      
       required: true,
     },
   },

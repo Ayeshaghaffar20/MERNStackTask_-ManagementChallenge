@@ -42,8 +42,8 @@ export const register = async (req,res)=>{
           const mailOptions = {
             from: process.env.SENDER_EMAIL,
             to: email,
-            subject: '🎉 Welcome to CherryMart!',
-            text: `Thank you for signing up! ${email} your new favorite place to shop! We're excited to have you on board. 🛍️🍒`
+            subject: '🎉 Welcome to Task Manager!',
+            text: `Thank you for signing up! ${email}`
 
         }
 

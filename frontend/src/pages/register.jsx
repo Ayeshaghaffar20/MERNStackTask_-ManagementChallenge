@@ -1,122 +1,103 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { toast } from 'react-toastify'; 
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { registerUser } from '../redux/slices/authSlices';
 
-const Register= () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [isSignup, setIsSignup] = useState(true);
+const RegisterForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // Handle form submission
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
-    setLoading(true); // Start loading
+  const { user, loading, error } = useSelector((state) => state.auth);
 
-    try {
-      axios.defaults.withCredentials = true; 
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
 
-      if (isSignup) {
-        
-        const { data } = await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL}/api/users/register`,
-          { name, email, password }
-        );
-
-        if (data.success) {
-          toast.success('Account created successfully. Please log in.');
-          setIsSignup(false);
-        } else {
-          toast.error(data?.message || 'Something went wrong');
-        }
-      } else {
-     
-      
-
-        if (data.success) {
-          toast.success('Logged in successfully');
-        } else {
-          toast.error(data?.message || 'Something went wrong');
-        }
-      }
-    } catch (error) {
-      const message = error.response?.data?.message || 'Something went wrong';
-      toast.error(message); 
-    } finally {
-      setLoading(false); 
-    }
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(registerUser(formData));
+  };
+
+  // Redirect if register successful
+  useEffect(() => {
+    if (user) {
+      navigate('/login'); // 👈 Redirect after register
+    }
+  }, [user, navigate]);
+
   return (
-    <div className="min-h-screen flex items-center justify-center pt-16 bg-gray-100">
-      <div className="max-w-md w-full bg-white p-6 shadow-md rounded-md">
-        <h2 className="text-2xl font-bold text-center mb-4">{isSignup ? 'Register' : 'Login'}</h2>
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-        <form onSubmit={onSubmitHandler}>
-          {isSignup && (
-            <div className="mb-4">
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Name
-              </label>
-              <input
-                id="name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                required
-              />
-            </div>
-          )}
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-              required
-            />
+    <div className="min-h-screen flex items-center justify-center bg-[#1f1f2e] px-4 mt-5">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-[#2b2b40] p-8 rounded-xl shadow-2xl w-full max-w-sm"
+      >
+        <h2 className="text-3xl font-bold text-center text-orange-400 mb-6">
+          Create Your Account 🚀
+        </h2>
+
+        {error && (
+          <div className="bg-red-500 text-white text-center p-2 rounded-md mb-4">
+            {error}
           </div>
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-              required
-            />
-          </div>
-          <div className="flex justify-center">
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-              disabled={loading}
-            >
-              {loading ? 'Processing...' : isSignup ? 'Register' : 'Login'}
-            </button>
-          </div>
-        </form>
-        <div className="mt-4 text-center">
-          <button
-            onClick={() => setIsSignup((prev) => !prev)}
-            className="text-blue-600 hover:underline"
-          >
-            {isSignup ? 'Already have an account? Log in' : 'Don\'t have an account? Register'}
-          </button>
-        </div>
-      </div>
+        )}
+
+        <input
+          type="text"
+          name="name"
+          placeholder="Full Name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+          className="w-full p-3 mb-4 rounded-md bg-[#3b3b55] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+        />
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="w-full p-3 mb-4 rounded-md bg-[#3b3b55] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+        />
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+          className="w-full p-3 mb-6 rounded-md bg-[#3b3b55] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+        />
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-orange-400 hover:bg-orange-500 text-[#1f1f2e] font-bold py-3 rounded-md transition duration-300"
+        >
+          {loading ? 'Creating Account...' : 'Register'}
+        </button>
+
+        {/* Link to Login page */}
+        <p className="text-center text-gray-400 mt-6">
+          Already have an account?{' '}
+          <Link to="/" className="text-orange-400 hover:underline">
+            Login
+          </Link>
+        </p>
+      </form>
     </div>
   );
 };
 
-export default Register;
+export default RegisterForm;
