@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Hero = () => {
   return (
@@ -13,9 +14,9 @@ const Hero = () => {
           className="w-full p-3 rounded-md bg-[#3b3b55] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 mb-4"
         />
         
-        <button className="w-full bg-orange-400 hover:bg-orange-500 text-[#1f1f2e] font-bold py-3 rounded-md transition duration-300">
+        <Link className="w-full bg-orange-400 hover:bg-orange-500 text-[#1f1f2e] font-bold py-3 rounded-md transition duration-300">
           Add Task
-        </button>
+        </Link>
       </div>
     </div>
     </div>

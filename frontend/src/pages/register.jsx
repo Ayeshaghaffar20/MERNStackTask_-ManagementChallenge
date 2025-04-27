@@ -30,7 +30,7 @@ const RegisterForm = () => {
   // Redirect if register successful
   useEffect(() => {
     if (user) {
-      navigate('/login'); // 👈 Redirect after register
+      navigate('/Login'); // 
     }
   }, [user, navigate]);
 

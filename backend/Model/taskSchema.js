@@ -27,7 +27,7 @@ const taskSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users', // Reference to the User who created the task
       
-      required: true,
+      required: false,
     },
   },
   { timestamps: true } // Automatically adds `createdAt` and `updatedAt` fields
