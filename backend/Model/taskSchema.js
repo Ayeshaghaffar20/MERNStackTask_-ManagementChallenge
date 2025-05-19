@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 import User from './userModle.js';
 
-// Define the Task Schema
+
 const taskSchema = new mongoose.Schema(
   {
     title: {
@@ -14,18 +14,14 @@ const taskSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    dueDate: {
-      type: Date,
-      required: false, // Optional
-    },
     status: {
       type: String,
-      enum: ['pending', 'in-progress', 'completed'],
-      default: 'pending', // Default task status
+      enum: ['pending' ,'completed'],
+      default: 'pending',
     },
-    user: {
+    userID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'users', // Reference to the User who created the task
+      ref: 'User',
       
       required: false,
     },
@@ -33,7 +29,6 @@ const taskSchema = new mongoose.Schema(
   { timestamps: true } // Automatically adds `createdAt` and `updatedAt` fields
 );
 
-// Create the Task model
 const Task = mongoose.model('Task', taskSchema);
 
 export default Task;

@@ -4,13 +4,13 @@ import Task from "../Model/taskSchema.js";
 // Create a new task
 export const createTask = async (req, res) => {
   try {
-    const { title, description, dueDate, status } = req.body;
+    const { title, description, status } = req.body;
 
     const newTask = new Task({
       title,
       description,
-      dueDate,
       status,
+      // user: req.user.id, 
     });
 
     await newTask.save();
@@ -61,23 +61,15 @@ export const getTaskById = async (req, res) => {
 // Update a task
 export const updateTask = async (req, res) => {
   try {
-    const { title, description, dueDate, status } = req.body;
-
+    const { title, description, status } = req.body;
     const task = await Task.findById(req.params.id);
 
     if (!task) {
       return res.status(404).json({ message: 'Task not found' });
     }
 
-    // Ensure the task belongs to the authenticated user
-    if (task.user.toString() !== req.user.id) {
-      return res.status(403).json({ message: 'Unauthorized' });
-    }
-
-    // Update task fields
     task.title = title || task.title;
     task.description = description || task.description;
-    task.dueDate = dueDate || task.dueDate;
     task.status = status || task.status;
 
     await task.save();
@@ -89,6 +81,7 @@ export const updateTask = async (req, res) => {
   }
 };
 
+
 // Delete a task
 export const deleteTask = async (req, res) => {
   try {
@@ -98,12 +91,9 @@ export const deleteTask = async (req, res) => {
       return res.status(404).json({ message: 'Task not found' });
     }
 
-    // Ensure the task belongs to the authenticated user
-    if (task.user.toString() !== req.user.id) {
-      return res.status(403).json({ message: 'Unauthorized' });
-    }
 
-    await task.remove();
+    await Task.findByIdAndDelete(req.params.id);
+
 
     res.status(200).json({ message: 'Task deleted successfully' });
   } catch (err) {

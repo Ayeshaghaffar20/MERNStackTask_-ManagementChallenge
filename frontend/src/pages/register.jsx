@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { registerUser } from '../redux/slices/authSlices';
+import { toast } from 'react-toastify';
+import { registerUser } from '../redux/slices/authSlice';
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -27,15 +28,15 @@ const RegisterForm = () => {
     dispatch(registerUser(formData));
   };
 
-  // Redirect if register successful
   useEffect(() => {
     if (user) {
-      navigate('/Login'); // 
+      toast.success('Account created! Please check your email 📩');
+      navigate('/login');
     }
   }, [user, navigate]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#1f1f2e] px-4 mt-5">
+    <div className="min-h-screen flex items-center justify-center bg-[#1f1f2e] px-4 mt-8">
       <form
         onSubmit={handleSubmit}
         className="bg-[#2b2b40] p-8 rounded-xl shadow-2xl w-full max-w-sm"
@@ -88,10 +89,9 @@ const RegisterForm = () => {
           {loading ? 'Creating Account...' : 'Register'}
         </button>
 
-        {/* Link to Login page */}
         <p className="text-center text-gray-400 mt-6">
           Already have an account?{' '}
-          <Link to="/" className="text-orange-400 hover:underline">
+          <Link to="/login" className="text-orange-400 hover:underline">
             Login
           </Link>
         </p>

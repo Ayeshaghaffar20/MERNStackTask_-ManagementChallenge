@@ -4,9 +4,10 @@ import {Provider} from "react-redux";
 import Register from './pages/register'
 import Login from './pages/Login'
 import UserLayout from './components/layout/UserLayout'
-import store from './redux/store';
 import Home from './pages/Home';
-import ViewTask from './pages/ViewTask';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import store from './redux/store';
 
 
 
@@ -16,6 +17,7 @@ const App = () => {
 
  <div>
 
+   <ToastContainer position="top-center" />
 <Provider store={store}>
 <BrowserRouter>
   <Routes>
@@ -23,7 +25,7 @@ const App = () => {
   <Route index element={<Home/>}/>
   <Route path='/register' element={<Register/>}/>
   <Route path='/login' element={<Login/>}/>
-  <Route path='/view-task' element={<ViewTask/>}/>
+
   
 
 

@@ -32,8 +32,10 @@ export const register = async (req,res)=>{
 
         res.cookie('token',token,{
             httpOnly:true,
-            secure:process.env.NODE_ENV ==="production",
-            sameSite:process.env.NODE_ENV ==="production",
+            secure: true,          
+            sameSite: 'None',
+            // secure:process.env.NODE_ENV ==="production",
+            // sameSite:process.env.NODE_ENV ==="production",
             maxAge: 7 * 24 * 60 * 60 * 1000
 
         })
@@ -106,8 +108,10 @@ export const login = async (req, res) => {
 
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "production",
+             secure: true,          
+            sameSite: 'None',
+            // secure: process.env.NODE_ENV === "production",
+            // sameSite: process.env.NODE_ENV === "production",
             maxAge: 7 * 24 * 60 * 60 * 1000
 
 
@@ -134,18 +138,3 @@ export const login = async (req, res) => {
     }
 
 }
-
-// export const getProfile = async (req, res) => {
-//     try {
-//       const user = req.user;
-//       res.status(200).json({
-//         success: true,
-//         user,
-//       });
-//     } catch (error) {
-//       res.status(500).json({
-//         success: false,
-//         message: error.message,
-//       });
-//     }
-//   };
