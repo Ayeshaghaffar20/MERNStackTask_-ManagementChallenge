@@ -21,7 +21,7 @@ const Hero = () => {
     if (!user) {
       navigate('/register');
     } else {
-      setEditingTask(null); // Reset editing state for new task
+      setEditingTask(null); 
       setIsModalOpen(true);
     }
   };
@@ -50,7 +50,7 @@ const handleDelete = async (taskId) => {
 
   return (
  <div className={`relative min-h-screen ${isModalOpen ? 'backdrop-blur-sm' : ''} bg-[#1f1f2e] transition duration-300`}>
-  {/* Remove max-w-lg and mx-auto to avoid centering */}
+  
   <div className="p-8 text-white">
     <h1 className="text-2xl mb-4 font-bold text-orange-400">Your Tasks:</h1>
 
